@@ -227,10 +227,14 @@ switch opcao
         disp('--- MODO SEGURO ATIVO ---');
         % Roda direto os dados salvos dentro da função se chamada vazia.
         % Se quiser rodar outra matriz, descomente as duas linhas abaixo:
-        A_teste = [8 2 -10; -9 1 3; 15 -1 6];
+        A_teste = [8 2 -10 3; -9 1 3 5; 3 15 -1 6];
         % [n1, ninf] = determinar_normas(A_teste);
 
-        [n1, ninf] = determinar_normas(A_teste, false);
+        A_normalizada = normalizar_matriz(A_teste);
+
+        % 2. Passa a matriz já normalizada para calcular as normas
+
+        [n1, ninf] = determinar_normas(A_normalizada);
 
     % =========================================================================
     case 18 % Q7 - Diagnóstico Completo de Condicionamento (Cond Nativo via Inversa)

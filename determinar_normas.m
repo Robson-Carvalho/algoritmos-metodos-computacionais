@@ -1,28 +1,10 @@
-function [n1, ninf] = determinar_normas(A, normalizar)
+function [n1, ninf] = determinar_normas(A)
     % Se não passar a matriz, carrega os dados padrão da Q6 da prova
     if nargin < 1
         A = [ 8,  2, -10;
              -9,  1,   3;
               15, -1,   6];
         fprintf('Executando determinar_normas com dados padrões da Q6:\n');
-    end
-
-    % Se não passar a flag 'normalizar', o padrão será FALSE (não normalizar)
-    if nargin < 2
-        normalizar = false;
-    end
-
-    % --- BLOCO DE NORMALIZAÇÃO ATIVADO PELA FLAG ---
-    if normalizar
-        fprintf('\n[FLAG ATIVADA]: Normalizando a matriz por linhas...\n');
-        for i = 1:size(A, 1)
-            max_linha = max(abs(A(i, :)));
-            A(i, :) = A(i, :) / max_linha;
-        end
-        disp('Matriz após a normalização interna:');
-        disp(A);
-    else
-        fprintf('\n[FLAG DESATIVADA]: Calculando normas da matriz original (sem alterações).\n');
     end
 
     [linhas, colunas] = size(A);
