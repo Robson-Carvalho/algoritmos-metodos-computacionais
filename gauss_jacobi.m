@@ -24,13 +24,19 @@ function x = gauss_jacobi(A, b, x0, tol, max_iter)
         end
     end
 
-    fprintf('\n--- MÉTODO DE GAUSS-JACOBI ---\n');
+    fprintf('\n==================================================\n');
+    fprintf('               MÉTODO DE GAUSS-JACOBI\n');
+    fprintf('==================================================\n');
     if dd
         fprintf('Critério de Diagonal Dominante ATENDIDO.\n');
     else
         fprintf('AVISO: Matriz NÃO é diagonal dominante.\n');
     end
-    fprintf('\n');
+    fprintf('--------------------------------------------------\n');
+
+    % Cabeçalho alinhado para a tabela de iterações
+    fprintf(' %-5s | %-10s | %s\n', 'Iter', 'Dr (Erro)', 'Vetor Solução x');
+    fprintf('--------------------------------------------------\n');
 
     x = x0;
     x_new = zeros(n, 1);
@@ -46,7 +52,7 @@ function x = gauss_jacobi(A, b, x0, tol, max_iter)
             x_new(i) = (b(i) - soma) / A(i,i);
         end
 
-        % Erro relativo
+        % Erro relativo (Dr)
         max_diff = max(abs(x_new - x));
         max_val = max(abs(x_new));
         if max_val == 0
@@ -54,19 +60,26 @@ function x = gauss_jacobi(A, b, x0, tol, max_iter)
         end
         Dr = max_diff / max_val;
 
-        % Impressão organizada
-        fprintf('Iter %2d | Dr = %.6e | x = [ ', iter, Dr);
+        % Impressão no formato limpo de 5 casas decimais solicitado
+        fprintf('  %3d  |   %.5f   | [ ', iter, Dr);
         for idx = 1:n
-            fprintf('%.6f ', x_new(idx));
+            fprintf('%.5f ', x_new(idx));
         end
         fprintf(']\n');
 
+        % Condição de parada rigorosa
         if Dr < tol
-            fprintf('\nConvergência atingida em %d iterações.\n', iter);
+            fprintf('--------------------------------------------------\n');
+            fprintf('Convergência atingida em %d iterações.\n', iter);
+            fprintf('==================================================\n');
             x = x_new;
             return;
         end
 
         x = x_new;
     end
+
+    fprintf('--------------------------------------------------\n');
+    fprintf('Aviso: Limite máximo de %d iterações atingido sem convergência.\n', max_iter);
+    fprintf('==================================================\n');
 end

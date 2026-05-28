@@ -9,6 +9,15 @@ function [n1, ninf] = determinar_normas(A)
 
     [linhas, colunas] = size(A);
 
+    % --- EXTRA: Print formatado da matriz de entrada com 5 casas decimais ---
+    fprintf('\nMatriz analisada (Formato limpo):\n');
+    for i = 1:linhas
+        for j = 1:colunas
+            fprintf('  %8.5f', A(i, j));
+        end
+        fprintf('\n');
+    end
+
     fprintf('==================================================\n');
     fprintf('         CÁLCULO DE NORMAS MATRICIAIS\n');
     fprintf('==================================================\n');
@@ -21,10 +30,10 @@ function [n1, ninf] = determinar_normas(A)
             soma_atual = soma_atual + abs(A(i, j));
         end
         somas_colunas(j) = soma_atual;
-        fprintf('  Soma absoluta da Coluna %d = %.4f\n', j, soma_atual);
+        fprintf('  Soma absoluta da Coluna %d = %.5f\n', j, soma_atual);
     end
     n1 = max(somas_colunas);
-    fprintf('-> NORMA 1 (||A||1) [Máximo das Colunas] = %.4f\n\n', n1);
+    fprintf('-> NORMA 1 (||A||1) [Máximo das Colunas] = %.5f\n\n', n1);
 
     % --- 2. CÁLCULO DA NORMA INFINITO (SOMA DAS LINHAS) ---
     somas_linhas = zeros(linhas, 1);
@@ -34,9 +43,9 @@ function [n1, ninf] = determinar_normas(A)
             soma_atual = soma_atual + abs(A(i, j));
         end
         somas_linhas(i) = soma_atual;
-        fprintf('  Soma absoluta da Linha %d  = %.4f\n', i, soma_atual);
+        fprintf('  Soma absoluta da Linha %d  = %.5f\n', i, soma_atual);
     end
     ninf = max(somas_linhas);
-    fprintf('-> NORMA INFINITO (||A||inf) [Máximo das Linhas] = %.4f\n', ninf);
+    fprintf('-> NORMA INFINITO (||A||inf) [Máximo das Linhas] = %.5f\n', ninf);
     fprintf('==================================================\n');
 end

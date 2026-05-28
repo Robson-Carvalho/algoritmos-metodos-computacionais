@@ -55,7 +55,7 @@ function [A_inv, x_final] = inversa_gauss_jordan(A, b)
     fprintf('Matriz Inversa calculada A^-1:\n');
     for i = 1:n
         for j = 1:n
-            fprintf('  %8.4f', A_inv(i, j));
+            fprintf('  %0.5f', A_inv(i, j));
         end
         fprintf('\n');
     end
@@ -76,7 +76,7 @@ function [A_inv, x_final] = inversa_gauss_jordan(A, b)
     % ---- NOVIDADE: Print dinâmico da Verificação ----
     for i = 1:n
         for j = 1:n
-            fprintf('  %8.4f', Verif(i, j));
+            fprintf('  %0.5f', Verif(i, j));
         end
         fprintf('\n');
     end

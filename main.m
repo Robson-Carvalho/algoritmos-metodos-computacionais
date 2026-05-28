@@ -26,7 +26,7 @@ disp('17 - Cálculo de Normas Matriciais (||A||1 e ||A||inf Nativo)');
 disp('18 - Diagnóstico Completo de Condicionamento (Nativo Q7)');
 disp('===========================================================');
 
-opcao = 5; % <<< DIGITE O NÚMERO DA QUESTÃO AQUI PARA EXECUTAR
+opcao = 9; % <<< DIGITE O NÚMERO DA QUESTÃO AQUI PARA EXECUTAR
 
 switch opcao
 
@@ -114,10 +114,12 @@ switch opcao
 
     % =========================================================================
     case 8  % Q8 - Método Iterativo de Gauss-Seidel
-        A = [10  2  1;
-              1  5  1;
-              2  3 10];
-        b = [13; 7; 15];
+         A = [0.8  -0.4  0;
+             -0.4  0.8  -0.4;
+             0  -0.4 0.8];
+
+        b = [41; 25; 105];
+
         x0 = [0; 0; 0]; % Estimativa inicial
 
         % Parâmetros: (A, b, x0, tolerância, max_iterações)
@@ -125,10 +127,12 @@ switch opcao
 
     % =========================================================================
     case 9  % Q9 - Método Iterativo de Jacobi
-        A = [10  2  1;
-              1  5  1;
-              2  3 10];
-        b = [13; 7; 15];
+        A = [10  2  -1;
+            -3  -6  2;
+             1  1 5];
+
+        b = [27; -61.5; -21.5];
+
         x0 = [0; 0; 0];
 
         x = gauss_jacobi(A, b, x0, 0.05, 100);
@@ -239,7 +243,7 @@ switch opcao
         disp('--- MODO SEGURO ATIVO ---');
         % Roda direto os dados salvos dentro da função se chamada vazia.
         % Se quiser rodar outra matriz, descomente as duas linhas abaixo:
-        A_teste = [8 2 -10 3; -9 1 3 5; 3 15 -1 6];
+        A_teste = [8 2 -10; -9 1 3; 15 -1 6];
         % [n1, ninf] = determinar_normas(A_teste);
 
         A_normalizada = normalizar_matriz(A_teste);
@@ -251,15 +255,15 @@ switch opcao
     % =========================================================================
     case 18 % Q7 - Diagnóstico Completo de Condicionamento (Cond Nativo via Inversa)
         disp('--- MODO SEGURO ATIVO ---');
-        % Gera a matriz de Vandermonde teórica e calcula Cond(A) = ||A|| * ||A^-1||
-        % Se quiser alterar os valores das variáveis x, descomente o bloco abaixo:
-        % x_provas = [4; 2; 7];
-        % A_teste = [x_provas(1)^2, x_provas(1), 1;
-        %            x_provas(2)^2, x_provas(2), 1;
-        %            x_provas(3)^2, x_provas(3), 1];
-        % cond = numero_condicao(A_teste);
 
-        cond = numero_condicao();
+        x_provas = [4; 2; 7]; % 3 pontos geram uma matriz 3x3 de Vandermonde
+
+        % Ativando como TRUE: A função transforma o vetor x_provas em matriz
+        cond = numero_condicao(x_provas, true);
+
+        %A_prova = [ 5, -1,  2; 3,  8, -2; 1,  1,  4 ];
+        % Ativando como FALSE: A função usa a matriz A_prova exatamente como ela é
+        %cond = numero_condicao(A_prova, false);
 
     % =========================================================================
     otherwise

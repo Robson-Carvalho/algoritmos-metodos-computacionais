@@ -28,19 +28,26 @@ function x = gauss_seidel(A, b, x0, tol, max_iter)
 
     max_beta = max(beta);
 
-    fprintf('\n--- MÉTODO DE GAUSS-SEIDEL ---\n');
+    fprintf('\n==================================================\n');
+    fprintf('               MÉTODO DE GAUSS-SEIDEL\n');
+    fprintf('==================================================\n');
     if max_beta < 1
-        fprintf('Critério de Sassenfeld ATENDIDO (beta_max = %.6f < 1)\n', max_beta);
+        fprintf('Critério de Sassenfeld ATENDIDO (beta_max = %.5f < 1)\n', max_beta);
     else
-        fprintf('AVISO: Critério de Sassenfeld NÃO atendido (beta_max = %.6f >= 1)\n', max_beta);
+        fprintf('AVISO: Critério de Sassenfeld NÃO atendido (beta_max = %.5f >= 1)\n', max_beta);
     end
-    fprintf('\n');
+    fprintf('--------------------------------------------------\n');
+
+    % Cabeçalho alinhado para a tabela de iterações
+    fprintf(' %-5s | %-10s | %s\n', 'Iter', 'Dr (Erro)', 'Vetor Solução x');
+    fprintf('--------------------------------------------------\n');
 
     x = x0;
 
     for iter = 1:max_iter
-        x_old = x;
+        x_old = x; % Salva o x do início da iteração para comparar o erro real
 
+        % Atualização do vetor x linha por linha
         for i = 1:n
             soma = 0;
             for j = 1:n
@@ -51,7 +58,7 @@ function x = gauss_seidel(A, b, x0, tol, max_iter)
             x(i) = (b(i) - soma) / A(i,i);
         end
 
-        % Erro relativo
+        % CÁLCULO DO ERRO RELATIVO CORRETO (Comparando o novo x com o x_old do início do passo)
         max_diff = max(abs(x - x_old));
         max_val = max(abs(x));
         if max_val == 0
@@ -59,16 +66,23 @@ function x = gauss_seidel(A, b, x0, tol, max_iter)
         end
         Dr = max_diff / max_val;
 
-        % Impressão organizada
-        fprintf('Iter %2d | Dr = %.6e | x = [ ', iter, Dr);
+        % Impressão no formato limpo de 5 casas decimais solicitado
+        fprintf('  %3d  |   %.5f   | [ ', iter, Dr);
         for idx = 1:n
-            fprintf('%.6f ', x(idx));
+            fprintf('%.5f ', x(idx));
         end
         fprintf(']\n');
 
+        % Condição de parada rigorosa
         if Dr < tol
-            fprintf('\nConvergência atingida em %d iterações.\n', iter);
+            fprintf('--------------------------------------------------\n');
+            fprintf('Convergência atingida em %d iterações.\n', iter);
+            fprintf('==================================================\n');
             return;
         end
     end
+
+    fprintf('--------------------------------------------------\n');
+    fprintf('Aviso: Limite máximo de %d iterações atingido sem convergência.\n', max_iter);
+    fprintf('==================================================\n');
 end
