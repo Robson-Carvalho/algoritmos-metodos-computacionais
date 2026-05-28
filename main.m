@@ -26,7 +26,7 @@ disp('17 - Cálculo de Normas Matriciais (||A||1 e ||A||inf Nativo)');
 disp('18 - Diagnóstico Completo de Condicionamento (Nativo Q7)');
 disp('===========================================================');
 
-opcao = 4; % <<< DIGITE O NÚMERO DA QUESTÃO AQUI PARA EXECUTAR
+opcao = 5; % <<< DIGITE O NÚMERO DA QUESTÃO AQUI PARA EXECUTAR
 
 switch opcao
 
@@ -78,12 +78,14 @@ switch opcao
         x_b = decomposicao_lu(A, b_b);
 
     % =========================================================================
-    case 5  % Q5 - Matriz Inversa via Gauss-Jordan
-        A = [10  2 -1;
-             -3 -6  2;
-              1  1  5];
+    case 5  % Q5 - Matriz Inversa via Gauss-Jordan (Não precisa passar a matriz aumentada)
+      A = [10,  2, -1;
+             -3, -6,  2;
+              1,  1,  5];
 
-        A_inv = inversa_gauss_jordan(A);
+        % Vetor dos termos independentes da imagem
+        b = [27; -61.5; -21.5];
+        A_inv = inversa_gauss_jordan(A, b);
 
     % =========================================================================
     case 6  % Q6 - Normalização por Linha (Maior elemento de cada linha = 1)
