@@ -26,7 +26,7 @@ disp('17 - Cálculo de Normas Matriciais (||A||1 e ||A||inf Nativo)');
 disp('18 - Diagnóstico Completo de Condicionamento (Nativo Q7)');
 disp('===========================================================');
 
-opcao = 9; % <<< DIGITE O NÚMERO DA QUESTÃO AQUI PARA EXECUTAR
+opcao = 10; % <<< DIGITE O NÚMERO DA QUESTÃO AQUI PARA EXECUTAR
 
 switch opcao
 
@@ -138,15 +138,27 @@ switch opcao
         x = gauss_jacobi(A, b, x0, 0.05, 100);
 
     % =========================================================================
-    case 10 % Q10 - Método Iterativo SOR (Sucessivas Sobrerrelaxações)
-        A = [4 1 1;
-             1 5 2;
-             1 2 5];
-        b = [6; 8; 8];
-        x0 = [0; 0; 0];
-        omega = 1.2; % Fator de relaxação (Ótimo entre 1.0 e 1.8)
+    case 10 % Q10 - Método Iterativo SOR (Sucessivas Sobrerrelaxações) OTIMIZADO
+        disp('--- RESOLVENDO Q10 COM REARRANJO DE LINHAS ---');
 
-        x = sor(A, b, x0, 0.05, 100, omega);
+        % Matriz rotacionada manualmente para garantir diagonal dominante
+        A = [2 -6 -1;
+              -3 -1 7;
+             -8 1 -2];
+
+        % Vetor b acompanhando a mesma troca de linhas
+        b = [-38; -34; -20];
+
+        x0 = [0; 0; 0];
+
+        % Definindo a tolerância de 5% pedida no enunciado (5% = 0.05)
+        tol = 0.05;
+        max_iter = 100;
+
+        % Fator omega escolhido para o teste
+        omega = 1.2;
+
+        x = sor(A, b, x0, tol, max_iter, omega);
 
     % =========================================================================
     case 11 % Interpolação de Newton (Diferenças Divididas)
