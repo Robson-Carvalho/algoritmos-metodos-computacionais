@@ -26,7 +26,7 @@ disp('17 - Cálculo de Normas Matriciais (||A||1 e ||A||inf Nativo)');
 disp('18 - Diagnóstico Completo de Condicionamento (Nativo Q7)');
 disp('===========================================================');
 
-opcao = 3; % <<< DIGITE O NÚMERO DA QUESTÃO AQUI PARA EXECUTAR
+opcao = 4; % <<< DIGITE O NÚMERO DA QUESTÃO AQUI PARA EXECUTAR
 
 switch opcao
 
@@ -65,13 +65,17 @@ switch opcao
 
     % =========================================================================
     case 4  % Q4 - Decomposição LU
-        A = [3 2 4;
-             1 1 2;
-             4 3 2];
-        b = [1; 2; 3];
+        A = [7 2 -3;
+             2 5 -3;
+             1 -1 -6];
+        b = [-12; -20; -26];
 
         x = decomposicao_lu(A, b);
-        disp('>> DICA: Teste outro vetor b alterando diretamente o código acima <<');
+
+        % resolva o sistema para um vetor do lado direito alternativo aproveitando as matrizes L e U obtidas em (a):
+
+        b_b = [12; 18; -6];
+        x_b = decomposicao_lu(A, b_b);
 
     % =========================================================================
     case 5  % Q5 - Matriz Inversa via Gauss-Jordan
