@@ -26,7 +26,7 @@ disp('17 - Cálculo de Normas Matriciais (||A||1 e ||A||inf Nativo)');
 disp('18 - Diagnóstico Completo de Condicionamento (Nativo Q7)');
 disp('===========================================================');
 
-opcao = 17; % <<< DIGITE O NÚMERO DA QUESTÃO AQUI PARA EXECUTAR
+opcao = 3; % <<< DIGITE O NÚMERO DA QUESTÃO AQUI PARA EXECUTAR
 
 switch opcao
 
@@ -42,19 +42,24 @@ switch opcao
 
     % =========================================================================
     case 2  % Q2 - Gauss-Jordan
-        A = [ 2  1 -1;
-             -3 -1  2;
-             -2  1  2];
-        b = [8; -11; -3];
+       A = [130 -30 0; 90 -90 0; 40 60 -120];
+       b = [200; 0; -500];
+
 
         x = gauss_jordan(A, b);
 
     % =========================================================================
     case 3  % Q3 - Gauss Ingênua (Sem pivô)
-        A = [6  2 -1;
-             1  4  1;
-             2 -1  5];
-        b = [11; 4; 16];
+        A = [ 2,  1, -1,  2;
+              4,  4,  1,  3;
+             -2, -3,  1, -1;
+              2,  1,  3, -2 ];
+
+        % Vetor b (4x1)
+        b = [ 11;
+              20;
+              -9;
+               1 ];
 
         x = gauss_ingenua(A, b);
 
@@ -180,6 +185,7 @@ switch opcao
 
         % Transforma dados originais aplicando ln(X) e ln(Y)
         M = matriz_potencia_linearizada(X, Y);
+
         X_lin = M(:, 1);
         Y_lin = M(:, 2);
 
@@ -202,7 +208,7 @@ switch opcao
         X = X(:); Y = Y(:);
 
         % Defina aqui quais graus quer sobrepor no mesmo gráfico comparativo
-        graus_mostrar = [1, 2, 4, 10];
+        graus_mostrar = [1, 3, 10];
         fprintf('Processando curvas para os graus: %s\n', num2str(graus_mostrar));
 
         reg_polinomial(X, Y, graus_mostrar);
