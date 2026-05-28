@@ -1,7 +1,7 @@
 function coefs = interp_newton(X, Y)
     if nargin < 2
-        X = [1, 2, 4, 5];
-        Y = [1, 3, 12, 19];
+        X = [0 0.5 1];
+        Y = [1 2.12 3.55];
         fprintf('Executando Interpolação de Newton com pontos padrões:\n');
     end
 

@@ -26,7 +26,7 @@ disp('17 - Cálculo de Normas Matriciais (||A||1 e ||A||inf Nativo)');
 disp('18 - Diagnóstico Completo de Condicionamento (Nativo Q7)');
 disp('===========================================================');
 
-opcao = 10; % <<< DIGITE O NÚMERO DA QUESTÃO AQUI PARA EXECUTAR
+opcao = 12; % <<< DIGITE O NÚMERO DA QUESTÃO AQUI PARA EXECUTAR
 
 switch opcao
 
@@ -179,7 +179,7 @@ switch opcao
         X = X(1:3); Y = Y(1:3);
         disp('Pontos ativos para a interpolação [X | Y]:'); disp([X', Y']);
 
-        mostrar_L = [1 2 3]; % Índices dos polinômios de suporte Li a exibir
+        mostrar_L = [1 2]; % Índices dos polinômios de suporte Li a exibir
         interp_lagrange(X, Y, mostrar_L);
 
     % =========================================================================
